@@ -1,0 +1,43 @@
+<div class="sidebar">
+    <div class="sidebar-header" *ngIf="mobile">
+        <div class="grid m-0">
+            <div class="col-12 center">
+                <img class="image-logo-mobile" src="assets/img/logo_app.png" alt="imagen logo certificado electronico">
+            </div>
+        </div>
+    </div>
+    <div class="sidebar-menu">
+        <app-menu-opcion [menuMin]="menuMin" [menuRaiz]="true" [mobile]="mobile" [listaOpciones]="listaOpciones" (menuIndexEvent)="goRoute($event)" (menuActivarEvent)="clickActivarEvent($event)"></app-menu-opcion>
+        <!--
+        <ul class="primer-nivel">
+            <li pRipple *ngFor="let item of listaOpciones; let indice = index" class="indentado padre" [ngClass]="{'selected': item.select}" (click)="goRoute(indice)">
+                <a href="#">
+                    <i class="{{item.icon}}"></i>
+                    <span [ngClass]="{'hide': menuMin}" >{{item.title}}</span>
+                    <i class="pi pi-minus-circle" [ngClass]="{'icono-padre-min': menuMin, 'icono-padre': !menuMin}"></i>
+                </a>
+                <ul class="submenu">
+                    <li class="indentado"><a href="">Nice Dropdown Menu </a></li>
+                    <li class="indentado"><a href="">Submenu - 1</a></li>
+                    <li class="indentado padre"><a href="#">Dropdown</a>
+                        <ul class="submenu" >
+                            <li class="indentado"><a href="">Submenu - 1</a></li>
+                            <li class="indentado"><a href="">Submenu - 2</a></li>
+                            <li class="indentado padre"><a href="#">Dropdown</a>
+                                <ul class="submenu">
+                                    <li class="indentado"><a href="">Submenu - 1</a></li>
+                                    <li class="indentado"><a href="">Submenu - 2</a></li>
+                                    <li class="indentado"><a href="">Submenu - 3</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="">Submenu - 3</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Submenu - 2</a></li>
+                </ul>
+            </li>
+        </ul>
+         -->
+    </div>
+   <!--  <p-button type="text" (click)="display = true" icon="pi pi-plus" label="Show"></p-button> -->
+</div>

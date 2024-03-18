@@ -1,0 +1,61 @@
+<app-navbar></app-navbar>
+<body class="body-color">
+<div class="main-container">
+    <div class="main-content">
+        <div class="container-vertical center">
+            <div class="container-vertical pt-4">
+                <div class="container-logo margin-logo">
+                    <img class="image-logo-seguimiento-1" src="assets\img\lpt-m.png">
+                    <img class="image-logo-seguimiento-2" src="assets\img\logo_seguimiento.png">
+                </div>
+                <div class="container end margin-bottom-class">
+                    <span>versión 1.0.0</span>
+                </div>
+            </div>
+            <div class="container margin-bottom-class pt-4">
+                <div class="container-vertical width-column-documento">
+                    <label class="texto-documento margin-bottom-sub">Número de documento: </label>
+                    <input type="text" numbersOnly maxlength="8" minlength="8" name="numDocumento" class="input-documento" [(ngModel)]="numDocumento"/>
+                </div>
+                <div class="container-vertical width-column-documento ml-3">
+                    <label class="texto-documento margin-bottom-sub">Fecha de emisión: </label>
+                    <p-calendar [showIcon]="true" class="calendar-documento" [(ngModel)]="fechaEmision" dateFormat="dd/mm/yy"></p-calendar>
+                </div>
+            </div>
+            <div class="container-vertical">
+                <div class="container-buscar start margin-bottom-sub">
+                    <span>Ingresar código de expediente: </span>
+                </div>
+                <div class="container-buscar margin-bottom-class">
+                    <div class="panel-form-seguimiento shadow-4">
+                        <input class="input-pj input-codigo rounded-pj" type="text" numbersOnly (paste)="pegar($event)" maxlength="5" minlength="5" name="numExpe" [(ngModel)]="numExpe" />
+                        <span class="spacio-codigo">-</span>
+                        <input class="input-pj input-codigo rounded-pj" type="text" numbersOnly (paste)="pegar($event)" maxlength="4" minlength="4" name="anio"  [(ngModel)]="anioExp" />
+                        <span class="spacio-codigo">-</span>
+                        <input class="input-pj input-codigo rounded-pj" type="text" numbersOnly (paste)="pegar($event)" minlength="1" maxlength="4" name="incidente" [(ngModel)]="incidente" />
+                        <span class="spacio-codigo">-</span>
+                        <input class="input-pj input-codigo rounded-pj" type="text" numbersOnly (paste)="pegar($event)" maxlength="4" minlength="4" name="sede" [(ngModel)]="sede"/>
+                        <span class="spacio-codigo">-</span>
+                        <input class="input-pj input-codigo rounded-pj" type="text" stringOnly (paste)="pegar($event)" maxlength="2" minlength="2" name="instancia" [(ngModel)]="instancia" (input)="check($event)"/>
+                        <span class="spacio-codigo">-</span>
+                        <input class="input-pj input-codigo rounded-pj" type="text" stringOnly (paste)="pegar($event)" maxlength="2" minlength="2" name="especialidad" [(ngModel)]="especialidad" (input)="check($event)"/>
+                        <span class="spacio-codigo">-</span>
+                        <input class="input-pj input-codigo rounded-pj" type="text" numbersOnly (paste)="pegar($event)" maxlength="2" name="secuencia" [(ngModel)]="secuencia" />
+                    </div> 
+                </div>
+            </div>
+            <div class="container margin-bottom-class">
+              <img class="image-referencia-expediente" src="assets\img\referencia_expediente.svg">
+            </div>
+            <div class="container margin-bottom-class">
+                <re-captcha #captchaElem class="g-capcha" (resolved)="resolved($event)" errorMode="handled" siteKey="{{capchaKey}}"></re-captcha>
+            </div> 
+            <div class="container pt-2 pb-4">
+                <button pButton pRipple type="button" label="CONSULTAR"  icon="pi pi-search" (click)="buscarDeposito()" iconPos="right"  class="p-button-sm p-button-danger btn-pj "></button>
+            </div>        
+          </div>
+               
+    </div>
+    <app-footer></app-footer>
+</div>
+</body>

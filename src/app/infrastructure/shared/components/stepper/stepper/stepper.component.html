@@ -1,0 +1,8 @@
+<ul [ngClass]="{'stepper': tipo=='h', 'stepper-v': tipo=='v'}" >
+    <li *ngFor="let item of steps"  [ngClass]="{'active': item.activo, 'select': item.select}" >
+        <div >
+            <span class="step-title">{{item.title}}</span><br>
+            <span class="step-description">{{item.description}}</span>
+        </div>
+    </li>
+</ul>

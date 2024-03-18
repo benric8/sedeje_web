@@ -1,0 +1,58 @@
+@import '../../../../../global.scss';
+.pg-no-found-header{
+    width: 100%;
+    background-color: $color-pj-primary;
+    padding: 12rem 2rem 3rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: 60px;
+    text-align: center;
+    color: rgba(255, 255, 255, .9);
+}
+.pg-no-found-porta{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem;
+}
+.img-pg-no-found{
+    width: 30%;
+}
+.pg-no-found-body{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 24px;
+    padding: 1rem 4rem 1rem 4rem;
+}
+@media screen and (max-width: 960px){
+    .img-pg-no-found{
+        width: 70%;
+    }
+}
+@media screen and (max-width: 768px){
+    .pg-no-found-header{
+        font-size: 48px;
+    }
+    .img-pg-no-found{
+        width: 90%;
+    }
+    .pg-no-found-body{
+        padding: 1rem 1rem;
+    }
+}
+.btn-ir-inicio{
+    background-color: $color-pj-primary;
+    padding: .5rem 2rem;
+    border-radius: 1rem;
+    border: none;
+}
+.btn-ir-inicio:focus, .btn-ir-inicio:hover, .btn-ir-inicio:active {
+    outline: 0 none;
+    outline-offset: 0;
+    background-color: $color-pj-primary;
+    box-shadow: 0 0 0 0.1rem $color-pj-primary;
+    border: none;
+  }
+  

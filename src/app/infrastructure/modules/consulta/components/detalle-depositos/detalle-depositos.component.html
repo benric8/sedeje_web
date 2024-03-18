@@ -1,0 +1,189 @@
+
+<app-navbar></app-navbar>
+<div class="main-container">
+    <div class="main-content">
+        <div class="vertical-container center">
+            <div class="container width_porc66 op-img">
+                <div class="flex px-10 py-1 gap-2 rounded-full bg-stone-900/40 hover:bg-stone-900/90">
+                    <fa-icon [icon]="faLeftLong" (click)="volverInicio()"
+                    style="color: #0300d1;" class="text-3xl waves-effect waves-light waves-circle"></fa-icon>
+                </div>
+                <div class="flex px-10 py-1 gap-2 rounded-full bg-stone-900/40 hover:bg-stone-900/90 ml-4">
+                    <fa-icon [icon]="faPrint" (click)="imprimirRegistro()"
+                        class="text-3xl waves-effect waves-light waves-circle"></fa-icon>
+                </div>                
+            </div>
+        </div>
+        <div id="panel-impresion" class="vertical-container center">
+            <div class="panel-print">
+                <div class="titulo">
+                    <h2>Seguimiento de Depósitos Judiciales Electrónicos</h2>
+                </div>
+                <div class="container width_porc66 shadow-4">
+                    <div class="container-info">
+                        <div class="info">
+                            <div class="row-resultado">
+                                <div class="text-info">
+                                    <span>Código Expediente:</span>
+                                </div>
+                                <div class="text-resultado">
+                                    <span>{{codexpediente}}</span>
+                                </div>
+                            </div>
+                            <div class="row-resultado">
+                                <div class="text-info">
+                                    <span>Distrito Judicial:</span>
+                                </div>
+                                <div class="text-resultado">
+                                    <span>{{nombreDistrito}}</span>
+                                </div>
+                            </div>
+                            <div class="row-resultado">
+                                <div class="text-info">
+                                    <span>Proceso:</span>
+                                </div>
+                                <div class="text-resultado">
+                                    <span>{{proceso}}</span>
+                                </div>
+                            </div>
+                            <div class="row-resultado">
+                                <div class="text-info">
+                                    <span>Materia(s):</span>
+                                </div>
+                                <div class="text-resultado">
+                                    <span>{{materia}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-info">
+                        <div class="info">
+                            <div class="row-resultado">
+                                <div class="text-info">
+                                    <span>Órgano Jurisdiccional:</span>
+                                </div>
+                                <div class="text-resultado">
+                                    <span>{{nombreJuzgado}}</span>
+                                </div>
+                            </div>
+                            <div class="row-resultado">
+                                <div class="text-info">
+                                    <span>Juez:</span>
+                                </div>
+                                <div class="text-resultado">
+                                    <span>{{nombreJuez}}</span>
+                                </div>
+                            </div>
+                            <div class="row-resultado">
+                                <div class="text-info">
+                                    <span>Especialista Legal:</span>
+                                </div>
+                                <div class="text-resultado">
+                                    <span>{{nombreEspecialista}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container width_porc66 shadow-4 mt-3 mb-4">
+                    <p-table id="tablaD" [value]="listaDepositos" [rows]="10" [rowsPerPageOptions]="[10,25,50]"
+                        [paginator]="true"
+                        [globalFilterFields]="['codigo','nombre','descripcion','nombreOpcionSuperior','url']"
+                        dataKey="codigoDeposito"
+                        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+                        [showCurrentPageReport]="true" class="tabla-detalle">
+                        <!-- responsiveLayout="scroll" -->
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 5rem"></th>
+                                <th pSortableColumn="codigoDeposito">Código de Depósito Judicial <p-sortIcon
+                                        field="codigoDeposito"></p-sortIcon></th>
+                                <th pSortableColumn="fechaRegistro">Fecha de Registro <p-sortIcon
+                                        field="fechaRegistro"></p-sortIcon></th>
+                                <th pSortableColumn="estado">Estado <p-sortIcon field="estado"></p-sortIcon></th>
+                                <!-- <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
+                                <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th> -->
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-deposito let-expanded="expanded">
+                            <tr>
+                                <td>
+                                    <button type="button" pButton pRipple [pRowToggler]="deposito"
+                                        class="p-button-text p-button-rounded p-button-plain"
+                                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                                </td>
+                                <td>{{ deposito.codigoDeposito }}</td>
+                                <td>{{ deposito.fechaRegistro}}</td>
+                                <td>{{ deposito.estado == 'P' ? 'Pendiente' : 'Cobrado' }}</td>
+                                <!-- <td><p-rating [ngModel]="deposito.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+                                <td>
+                                    <p-tag [value]="deposito.inventoryStatus" [severity]="getSeverity(deposito.inventoryStatus)"></p-tag>
+                                </td> -->
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="rowexpansion" let-depositoE>
+                            <tr>
+                                <td colspan="4">
+                                    <div class="p-3">
+                                        <div class="vertical-container center">
+                                            <div class="container width_porc66 center">
+                                                <div class="mt-4 mb-4">
+                                                    <app-stepper [tipo]="'h'"
+                                                        [steps]="cargarDepositoSeleccionado(depositoE.depositoEstados)"></app-stepper>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="depositoE.ordenesPago !== null && depositoE.ordenesPago.length>0" class="container width_porc96 center">
+                                                <p-table [value]="depositoE.ordenesPago" dataKey="cordenPago"
+                                                    [scrollable]="true" scrollHeight="400px" class="tabla-orden">
+                                                    <!-- responsiveLayout="scroll" -->
+                                                    <ng-template pTemplate="header">
+                                                        <tr>
+                                                            <th>Código Orden de Pago</th>
+                                                            <th>Fecha de Endoso</th>
+                                                            <th>Fecha de Cobro</th>
+                                                            <!-- <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
+                                                                                        <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th> -->
+                                                        </tr>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="body" let-orden>
+                                                        <tr>
+                                                            <td>{{ orden.cordenPago }}</td>
+                                                            <td>{{ orden.fechaEndoso}}</td>
+                                                            <td>{{ orden.fechaCobro }}</td>
+                                                            <!-- <td><p-rating [ngModel]="deposito.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+                                                                                        <td>
+                                                                                            <p-tag [value]="deposito.inventoryStatus" [severity]="getSeverity(deposito.inventoryStatus)"></p-tag>
+                                                                                        </td> -->
+                                                        </tr>
+                                                    </ng-template>
+                                                </p-table>
+                                            </div>
+                                            <div *ngIf="depositoE.ordenesPago == null || depositoE.ordenesPago.length==0" class="container width_porc96 center pb-2">
+                                                <span style="color: #a20101; font-weight: 600;">No tiene ordenes de pago</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="summary">
+                            <div class="flex align-items-center justify-content-center paginator-resultado">
+                                En total se encontraron {{listaDepositos ? listaDepositos.length : 0 }} depósitos judiciales electrónicos.
+                            </div>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>    
+        </div>
+
+        <!-- <div class="vertical-container center mt-4 pb-4">
+            <button pButton pRipple type="button" label="NUEVA CONSULTA" icon="pi pi-home" iconPos="right"
+            class="p-button-danger btn-pj" (click)="volverInicio()"></button>
+        </div> -->
+
+
+</div>
+<app-footer></app-footer>
+</div>        
+        
